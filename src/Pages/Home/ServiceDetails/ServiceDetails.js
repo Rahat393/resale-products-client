@@ -7,12 +7,14 @@ const ServiceDetails = () => {
     return (
         <div>
             {title}
-            {
-                products.map((product, i) => <ServiceDetailCard
-                    key={i}
-                    product={product}
-                ></ServiceDetailCard>)
-            }
+            <div className='grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-2'>
+                {
+                    products.map((product, i) => <ServiceDetailCard
+                        key={i}
+                        product={product}
+                    ></ServiceDetailCard>)
+                }
+            </div>
         </div>
     );
 };
