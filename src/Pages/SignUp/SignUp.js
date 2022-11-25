@@ -22,14 +22,14 @@ const SignUp = () => {
                 const user = result.user;
                 console.log(user);
                 toast('User create successfully.')
-                const userInfo = {
-                    displayName: data.name
-                }
-                updateUser(userInfo)
-                    // .then(() => {
-                    //     saveUser(data.name, data.email)
-                    // })
-                    .catch(err => console.log(err));
+                // const userInfo = {
+                //     displayName: data.name
+                // }
+                // updateUser(userInfo)
+                // .then(() => {
+                //     saveUser(data.name, data.email)
+                // })
+                // .catch(err => console.log(err));
             })
             .catch(error => {
                 console.log(error)

@@ -24,7 +24,9 @@ const ServiceDetailCard = ({ product }) => {
                 </div>
             </div>
             {
-                <BookingModal></BookingModal>
+                <BookingModal
+                    product={product}
+                ></BookingModal>
             }
         </div>
     );
