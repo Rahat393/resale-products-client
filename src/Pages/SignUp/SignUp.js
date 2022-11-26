@@ -17,24 +17,39 @@ const SignUp = () => {
     const handleSignUp = (data) => {
         console.log(data);
         setSignUPError('');
-        createUser(data.email, data.password)
+        createUser(data.email, data.password, data.role)
             .then(result => {
                 const user = result.user;
                 console.log(user);
                 toast('User create successfully.')
-                // const userInfo = {
-                //     displayName: data.name
-                // }
-                // updateUser(userInfo)
-                // .then(() => {
-                //     saveUser(data.name, data.email)
-                // })
-                // .catch(err => console.log(err));
+                const userInfo = {
+                    displayName: data.name
+                }
+                updateUser(userInfo)
+                    .then(() => {
+                        saveUser(data.name, data.email, data.role)
+                    })
+                    .catch(err => console.log(err));
             })
             .catch(error => {
                 console.log(error)
                 setSignUPError(error.message)
             });
+    }
+    const saveUser = (name, email, role) => {
+        const user = { name, email, role };
+        fetch('http://localhost:4000/users', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(user)
+        })
+            .then(res => res.json())
+            .then(data => {
+                // getUserToken(email)
+                setCreatedUserEmail(email);
+            })
     }
 
 
@@ -65,6 +80,15 @@ const SignUp = () => {
                         })} className="input input-bordered w-full max-w-xs" />
                         {errors.password && <p className='text-red-500'>{errors.password.message}</p>}
                     </div>
+                    <div className="form-control w-full max-w-xs">
+                        <label className="label"> <span className="label-text text-xl">Select Account Type</span></label>
+                        <select {...register("role")}>
+                            <option value="buyer">buyer</option>
+                            <option value="seller">seller</option>
+
+                        </select>
+                    </div>
+
                     <input className='btn btn-accent w-full mt-4' value="Sign Up" type="submit" />
                     {signUpError && <p className='text-red-600'>{signUpError}</p>}
                 </form>

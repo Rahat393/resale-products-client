@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import BookingModal from '../../BookingModal/BookingModal';
 
 const ServiceDetailCard = ({ product }) => {
     const { name, img, location, resale_price, orginal_price, years_of_use, sellers_name } = product
+    const [orders, setOrders] = useState(null)
     return (
         <div className="card card-compact w-96 bg-base-100 shadow-xl my-10 max-w-7xl mx-auto">
 
@@ -19,13 +20,18 @@ const ServiceDetailCard = ({ product }) => {
                 </div>
                 <div className="  w-full justify-center">
 
-                    <label htmlFor="booking-Modal" className="btn btn-success w-full   text-white">Book Now</label>
+                    <label onClick={() => setOrders(product)}
+                        htmlFor="booking-Modal"
+                        className="btn btn-success w-full
+                        text-white">Book Now</label>
 
                 </div>
             </div>
-            {
+            {orders &&
                 <BookingModal
                     product={product}
+                    orders={orders}
+                    setOrders={setOrders}
                 ></BookingModal>
             }
         </div>

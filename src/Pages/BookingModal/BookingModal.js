@@ -1,8 +1,11 @@
 import React, { useContext } from 'react';
 import { format } from 'date-fns';
 import { AuthContext } from '../../Contexts/AuthProvider';
+import toast from 'react-hot-toast';
+// import { Toast } from 'react-toastify/dist/components';
 
-const BookingModal = ({ product }) => {
+
+const BookingModal = ({ product, setOrders }) => {
     console.log(product);
     const { name: product_name, resale_price } = product
     const { user } = useContext(AuthContext)
@@ -10,23 +13,41 @@ const BookingModal = ({ product }) => {
     const handleBooking = event => {
         event.preventDefault();
         const form = event.target;
-        const slot = form.slot.value;
-        const name = form.name.value;
-        const resale_price = form.name.value
-        const product_name = form.email.value;
+        const resale_price = form.resale_price.value
+        const product_name = form.product_name.value;
         const email = form.email.value;
         const phone = form.phone.value;
         const location = form.location.value;
 
         const booking = {
-            // appointmentDate: date,
-            // treatment: treatmentName,
+
             product_name,
-            slot,
+            resale_price,
             email,
             phone,
             location
         }
+
+        fetch('http://localhost:4000/bookings', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(booking)
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                if (data.acknowledged) {
+                    toast.success('booking confirm')
+                    setOrders(null)
+                    // refetch();
+                }
+                else {
+                    toast.error(data.message);
+                }
+            })
+        console.log(booking);
     }
     return (
         <div>
@@ -44,7 +65,7 @@ const BookingModal = ({ product }) => {
                         <input name="phone" type='text' placeholder="Phone Number" className="input input-bordered " />
                         <input name="location" type='text' placeholder="Meeting Location" className="input input-bordered " />
 
-                        <input className='btn btn-accent' type="submit" value="SUBMIT" />
+                        <input className='btn btn-accent' type="submit" value="Submit" />
                         {/* <input className='btn btn-accent' type="submit">Submit</input> */}
                     </form>
                 </div>
