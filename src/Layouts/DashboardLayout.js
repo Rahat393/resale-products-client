@@ -1,5 +1,5 @@
 import React from 'react';
-import { Outlet } from 'react-router-dom';
+import { Link, Outlet } from 'react-router-dom';
 import Navbar from '../Pages/Home/Navbar/Navbar';
 
 const DashboardLayout = () => {
@@ -18,7 +18,7 @@ const DashboardLayout = () => {
 
                         {
                             // isAdmin && <>
-                            //     <li><Link to="/dashboard/allusers">All users</Link></li>
+                            <li><Link to='/dashboard/allbuyers'>All users</Link></li>
                             //     <li><Link to="/dashboard/adddoctor">Add Doctor</Link></li>
                             //     <li><Link to="/dashboard/managedoctors">Manage Doctors </Link></li>
                             // </>
