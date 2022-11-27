@@ -11,6 +11,8 @@ import ServiceDetails from "../../Pages/Home/ServiceDetails/ServiceDetails";
 import LogIn from "../../Pages/LogIn/LogIn";
 import NotFound from "../../Pages/NotFound/NotFound";
 import SignUp from "../../Pages/SignUp/SignUp";
+import AdminRoute from "../AdminRoute/AdminRoute";
+
 
 export const router = createBrowserRouter([
     {
@@ -54,7 +56,8 @@ export const router = createBrowserRouter([
             },
             {
                 path: '/dashboard/allbuyers',
-                element: <AllBuyers></AllBuyers>
+                element: <AdminRoute><AllBuyers></AllBuyers> </AdminRoute>
+
             },
             {
                 path: '/dashboard/addproducts',
