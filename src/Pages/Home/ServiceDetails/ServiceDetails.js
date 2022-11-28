@@ -6,7 +6,7 @@ const ServiceDetails = () => {
     const { title, products } = useLoaderData()
     return (
         <div>
-            {title}
+            <p className='text-center text-2xl'>{title}</p>
             <div className='grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-2'>
                 {
                     products.map((product, i) => <ServiceDetailCard

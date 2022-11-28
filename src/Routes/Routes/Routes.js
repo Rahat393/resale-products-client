@@ -6,12 +6,14 @@ import AddProducts from "../../Pages/Dashboard/AddProducts";
 import AllBuyers from "../../Pages/Dashboard/AllBuyers";
 import AllSellers from "../../Pages/Dashboard/AllSellers";
 import MyOrders from "../../Pages/Dashboard/MyOrders";
+import MyProduct from "../../Pages/Dashboard/MyProduct";
 import Home from "../../Pages/Home/Home/Home";
 import ServiceDetails from "../../Pages/Home/ServiceDetails/ServiceDetails";
 import LogIn from "../../Pages/LogIn/LogIn";
 import NotFound from "../../Pages/NotFound/NotFound";
 import SignUp from "../../Pages/SignUp/SignUp";
 import AdminRoute from "../AdminRoute/AdminRoute";
+import PrivateRoute from "../PrivateRoute/PrivateRoute";
 
 
 export const router = createBrowserRouter([
@@ -37,18 +39,22 @@ export const router = createBrowserRouter([
             },
             {
                 path: '/services/:id',
-                element: <ServiceDetails></ServiceDetails>,
+                element: <PrivateRoute><ServiceDetails></ServiceDetails></PrivateRoute>,
                 loader: ({ params }) => fetch(`http://localhost:4000/services/${params.id}`)
             }
         ]
     },
     {
         path: '/dashboard',
-        element: <DashboardLayout></DashboardLayout>,
+        element: <PrivateRoute><DashboardLayout></DashboardLayout></PrivateRoute>,
         children: [
             {
                 path: '/dashboard',
                 element: <MyOrders></MyOrders>
+            },
+            {
+                path: '/dashboard/myproduct',
+                element: <MyProduct></MyProduct>
             },
             {
                 path: '/dashboard/allsellers',
@@ -56,7 +62,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: '/dashboard/allbuyers',
-                element: <AdminRoute><AllBuyers></AllBuyers> </AdminRoute>
+                element: <AdminRoute><AllBuyers></AllBuyers></AdminRoute>
 
             },
             {

@@ -13,6 +13,22 @@ const AllBuyers = () => {
         }
     })
 
+    const handleDeleteUser = users => {
+        fetch(`http://localhost:4000/users/${users._id}`, {
+            method: 'DELETE',
+            headers: {
+                authorization: `bearer ${localStorage.getItem('accessToken')}`
+            }
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.deletedCount > 0) {
+                    refetch();
+                    toast.success(`Product ${users.name} deleted successfully`)
+                }
+            })
+    }
+
     const handleMakeAdmin = id => {
         fetch(`http://localhost:4000/users/admin/${id}`, {
             method: 'PUT',
@@ -51,7 +67,7 @@ const AllBuyers = () => {
                                 <td>{user.name}</td>
                                 <td>{user.email}</td>
                                 <td>  {user?.role !== 'admin' && <button onClick={() => handleMakeAdmin(user._id)} className='btn btn-xs btn-primary'>Make Admin</button>}</td>
-                                <td><button className='btn btn-xs btn-danger'>Delete</button></td>
+                                <td><button onClick={() => handleDeleteUser(user)} className='btn btn-xs btn-danger'>Delete</button></td>
                             </tr>)
                         }
 
